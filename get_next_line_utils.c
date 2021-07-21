@@ -16,6 +16,8 @@ int	ft_strlen(char *str)
 {
 	int	len;
 
+	if (str == NULL)
+		return (0);
 	len = 0;
 	while (*str++)
 		len++;
@@ -65,5 +67,6 @@ char	*ft_strjoin(char *str1, char *str2)
 		*temp++ = str2[idx++];
 	*temp = '\0';
 	free(str1);
+	free(str2);
 	return (join_str);
 }

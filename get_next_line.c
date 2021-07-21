@@ -52,7 +52,7 @@ char	*cal_next_line(char **str, int endidx, int fd)
 	idx = -1;
 	while (++idx <= len)
 		backup[idx] = str[fd][endidx + 1 + idx];
-	free(*str);
+	free(str[fd]);
 	str[fd] = backup;
 	return (next_line);
 }
