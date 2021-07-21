@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iha <marvin@42.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/21 13:48:15 by iha               #+#    #+#             */
+/*   Updated: 2021/07/21 13:48:18 by iha              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-int		is_newline(char *str)
+int	is_newline(char *str)
 {
 	int	cur;
 
 	cur = 0;
 	if (str == NULL)
 		return (-1);
-	while(str[cur])
+	while (str[cur])
 	{
 		if (str[cur] == '\n')
 			return (cur);
@@ -21,7 +33,8 @@ char	*cal_next_line(char **str, int endidx, int fd)
 	char	*next_line;
 	char	*backup;
 	int		len;
-	int		idx = 0;
+	int		idx;
+
 	idx = -1;
 	len = ft_strlen(str[fd]) - endidx;
 	next_line = (char *)malloc(sizeof(char) * (endidx + 1));
