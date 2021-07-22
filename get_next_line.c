@@ -46,7 +46,7 @@ char	*cal_next_line(char **str, int endidx, int fd)
 		free(next_line);
 		return (NULL);
 	}
-	while (++idx < endidx)
+	while (++idx <= endidx)
 		next_line[idx] = str[fd][idx];
 	next_line[idx] = '\0';
 	idx = -1;
@@ -62,18 +62,23 @@ char	*get_next_line(int fd)
 	char		buf[BUFFER_SIZE + 1];
 	static char	*backup[OPEN_MAX];
 	char		*next_line;
+	char		*temp;
 	int			rdsize;
 	int			endidx;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	endidx = is_newline(backup[fd]);
 	rdsize = BUFFER_SIZE;
 	while (endidx == -1 && rdsize == BUFFER_SIZE)
 	{
 		rdsize = read(fd, buf, BUFFER_SIZE);
+		if (rdsize == -1)
+			return (NULL);
 		buf[rdsize] = '\0';
+		temp = backup[fd];
 		backup[fd] = ft_strjoin(backup[fd], buf);
+		free(temp);
 		endidx = is_newline(backup[fd]);
 	}
 	if (rdsize != BUFFER_SIZE && endidx == -1)

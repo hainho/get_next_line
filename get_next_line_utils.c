@@ -66,7 +66,5 @@ char	*ft_strjoin(char *str1, char *str2)
 	while (str2[idx])
 		*temp++ = str2[idx++];
 	*temp = '\0';
-	free(str1);
-	free(str2);
 	return (join_str);
 }
