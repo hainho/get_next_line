@@ -32,16 +32,21 @@ int	read_buf(int fd, char **backup)
 {
 	char	buf[BUFFER_SIZE + 1];
 	char	*temp;
-	
+	int		idx;
+
 	if (is_newline(backup[fd]) != -1)
 		return (1);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
+		printf("read : %s\n",buf);
 		temp = backup[fd];
 		backup[fd] = ft_strjoin(backup[fd], buf);
 		free(temp);
 		if (is_newline(buf) != -1)
 			return (1);
+		idx = -1;
+		while (++idx <= BUFFER_SIZE)
+			buf[idx] = '\0';
 	}
 	return (0);
 }
@@ -75,7 +80,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	flag = read_buf(fd, backup);
-	if (backup[fd] == NULL)
+	if (ft_strlen(backup[fd]) == 0)
 		return (NULL);
 	if (backup[fd][ft_strlen(backup[fd]) - 1] == '\n')
 		flag = 0;
