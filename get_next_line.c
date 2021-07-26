@@ -12,18 +12,6 @@
 
 #include "get_next_line.h"
 
-// void	null_free(char *s)
-// {
-// 	int	idx;
-// 	int len;
-
-// 	idx = 0;
-// 	len = ft_strlen(s);
-// 	while (idx < len)
-// 		s[idx++] = '\0';
-// 	free(s);
-// }
-
 int	is_newline(char *str)
 {
 	int	cur;
@@ -48,9 +36,10 @@ int	read_buf(int fd, char **backup)
 
 	if (is_newline(backup[fd]) != -1)
 		return (1);
-	while (read(fd, buf, BUFFER_SIZE) > 0)
+	idx = read(fd, buf, BUFFER_SIZE);
+	while (idx > 0)
 	{
-		buf[BUFFER_SIZE] = '\0';
+		buf[idx] = '\0';
 		temp = backup[fd];
 		backup[fd] = ft_strjoin(backup[fd], buf);
 		free(temp);
@@ -59,6 +48,7 @@ int	read_buf(int fd, char **backup)
 		idx = -1;
 		while (++idx <= BUFFER_SIZE)
 			buf[idx] = '\0';
+		idx = read(fd, buf, BUFFER_SIZE);
 	}
 	return (0);
 }

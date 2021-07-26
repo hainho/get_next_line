@@ -1,28 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iha <marvin@42.fr>                         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/21 13:48:15 by iha               #+#    #+#             */
-/*   Updated: 2021/07/21 13:48:18 by iha              ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line_bonus.h"
-
-void	null_free(char *s)
-{
-	int	idx;
-	int len;
-
-	idx = 0;
-	len = ft_strlen(s);
-	while (idx < len)
-		s[idx++] = '\0';
-	free(s);
-}
 
 int	is_newline(char *str)
 {
@@ -48,16 +24,19 @@ int	read_buf(int fd, char **backup)
 
 	if (is_newline(backup[fd]) != -1)
 		return (1);
-	while (read(fd, buf, BUFFER_SIZE) > 0)
+	idx = read(fd, buf, BUFFER_SIZE);
+	while (idx > 0)
 	{
+		buf[idx] = '\0';
 		temp = backup[fd];
 		backup[fd] = ft_strjoin(backup[fd], buf);
-		null_free(temp);
+		free(temp);
 		if (is_newline(buf) != -1)
 			return (1);
 		idx = -1;
 		while (++idx <= BUFFER_SIZE)
 			buf[idx] = '\0';
+		idx = read(fd, buf, BUFFER_SIZE);
 	}
 	return (0);
 }
@@ -77,7 +56,7 @@ char	*line_split(int fd, char **backup)
 		return (NULL);
 	ft_strlcpy(next_line, backup[fd], idx + 1);
 	ft_strlcpy(temp, backup[fd] + idx, ft_strlen(backup[fd]) - idx + 1);
-	null_free(backup[fd]);
+	free(backup[fd]);
 	backup[fd] = temp;
 	return (next_line);
 }
@@ -98,7 +77,7 @@ char	*get_next_line(int fd)
 	if (flag == 0)
 	{
 		next_line = ft_strdup(backup[fd]);
-		null_free(backup[fd]);
+		free(backup[fd]);
 		backup[fd] = NULL;
 		if (next_line == NULL)
 			return (NULL);
