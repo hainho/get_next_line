@@ -33,14 +33,14 @@ int	read_buf(int fd, char **backup)
 	char	buf[BUFFER_SIZE + 1];
 	char	*temp;
 	
-	if (is_newline(backup[fd]))
+	if (is_newline(backup[fd]) != -1)
 		return (1);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
 		temp = backup[fd];
 		backup[fd] = ft_strjoin(backup[fd], buf);
 		free(temp);
-		if (is_newline(buf))
+		if (is_newline(buf) != -1)
 			return (1);
 	}
 	return (0);
@@ -77,8 +77,11 @@ char	*get_next_line(int fd)
 	flag = read_buf(fd, backup);
 	if (flag == 0)
 	{
+		if (backup[fd] == NULL)
+			return (NULL);
 		next_line = ft_strdup(backup[fd]);
 		free(backup[fd]);
+		backup[fd] = NULL;
 		if (next_line == NULL)
 			return (NULL);
 	}
