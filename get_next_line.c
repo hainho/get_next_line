@@ -32,15 +32,22 @@ int	read_buf(int fd, char **backup)
 {
 	char	buf[BUFFER_SIZE + 1];
 	char	*temp;
+	int		idx;
 	
-	if (is_newline(backup[fd]) != -1)
+	idx = is_newline(backup[fd]);
+	if (idx == (ft_strlen(backup[fd]) - 1) && backup[fd] != NULL)
+		return (0);
+	if (idx != -1)
 		return (1);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
 		temp = backup[fd];
 		backup[fd] = ft_strjoin(backup[fd], buf);
 		free(temp);
-		if (is_newline(buf) != -1)
+		idx = is_newline(buf);
+		if (idx == (ft_strlen(backup[fd]) - 1))
+			return (0);
+		if (idx != -1)
 			return (1);
 	}
 	return (0);
