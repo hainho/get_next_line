@@ -38,7 +38,6 @@ int	read_buf(int fd, char **backup)
 		return (1);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
-		printf("read : %s\n",buf);
 		temp = backup[fd];
 		backup[fd] = ft_strjoin(backup[fd], buf);
 		free(temp);
