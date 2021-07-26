@@ -28,64 +28,62 @@ int	is_newline(char *str)
 	return (-1);
 }
 
-char	*cal_next_line(char **str, int endidx, int fd)
+int	read_buf(int fd, char **backup)
 {
-	char	*next_line;
-	char	*backup;
-	int		len;
-	int		idx;
+	char	buf[BUFFER_SIZE + 1];
+	char	*temp;
+	
+	if (is_newline(backup[fd]))
+		return (1);
+	while (read(fd, buf, BUFFER_SIZE) > 0)
+	{
+		temp = backup[fd];
+		backup[fd] = ft_strjoin(backup[fd], buf);
+		free(temp);
+		if (is_newline(buf))
+			return (1);
+	}
+	return (0);
+}
 
-	idx = -1;
-	len = ft_strlen(str[fd]) - endidx;
-	next_line = (char *)malloc(sizeof(char) * (endidx + 1));
+char	*line_split(int fd, char **backup)
+{
+	int 	idx;
+	char	*next_line;
+	char	*temp;
+
+	idx = is_newline(backup[fd]) + 1;
+	next_line = malloc(sizeof(char) * (idx + 1));
 	if (next_line == NULL)
 		return (NULL);
-	backup = (char *)malloc(sizeof(char) * (len + 1));
-	if (backup == NULL)
-	{
-		free(next_line);
+	temp = malloc(sizeof(char) * (ft_strlen(backup[fd]) - idx + 1));
+	if (temp == NULL)
 		return (NULL);
-	}
-	while (++idx <= endidx)
-		next_line[idx] = str[fd][idx];
-	next_line[idx] = '\0';
-	idx = -1;
-	while (++idx <= len)
-		backup[idx] = str[fd][endidx + 1 + idx];
-	free(str[fd]);
-	str[fd] = backup;
+	ft_strlcpy(next_line, backup[fd], idx + 1);
+	ft_strlcpy(temp, backup[fd] + idx, ft_strlen(backup[fd]) - idx + 1);
+	free(backup[fd]);
+	backup[fd] = temp;
 	return (next_line);
 }
 
 char	*get_next_line(int fd)
 {
-	char		buf[BUFFER_SIZE + 1];
 	static char	*backup[OPEN_MAX];
 	char		*next_line;
-	char		*temp;
-	int			rdsize;
-	int			endidx;
+	int			flag;
 
 	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	endidx = is_newline(backup[fd]);
-	rdsize = BUFFER_SIZE;
-	while (endidx == -1 && rdsize == BUFFER_SIZE)
+	flag = read_buf(fd, backup);
+	if (flag == 0)
 	{
-		rdsize = read(fd, buf, BUFFER_SIZE);
-		if (rdsize == -1)
+		next_line = ft_strdup(backup[fd]);
+		free(backup[fd]);
+		if (next_line == NULL)
 			return (NULL);
-		buf[rdsize] = '\0';
-		temp = backup[fd];
-		backup[fd] = ft_strjoin(backup[fd], buf);
-		free(temp);
-		endidx = is_newline(backup[fd]);
 	}
-	if (rdsize != BUFFER_SIZE && endidx == -1)
-		endidx = ft_strlen(backup[fd]);
-	if (endidx == 0)
-		return (NULL);
-	next_line = cal_next_line(backup, endidx, fd);
+	else
+		next_line = line_split(fd, backup);
 	if (next_line == NULL)
 		return (NULL);
 	return (next_line);
