@@ -12,17 +12,17 @@
 
 #include "get_next_line.h"
 
-void	null_free(char *s)
-{
-	int	idx;
-	int len;
+// void	null_free(char *s)
+// {
+// 	int	idx;
+// 	int len;
 
-	idx = 0;
-	len = ft_strlen(s);
-	while (idx < len)
-		s[idx++] = '\0';
-	free(s);
-}
+// 	idx = 0;
+// 	len = ft_strlen(s);
+// 	while (idx < len)
+// 		s[idx++] = '\0';
+// 	free(s);
+// }
 
 int	is_newline(char *str)
 {
@@ -44,20 +44,17 @@ int	read_buf(int fd, char **backup)
 {
 	char	buf[BUFFER_SIZE + 1];
 	char	*temp;
-	int		idx;
 
 	if (is_newline(backup[fd]) != -1)
 		return (1);
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
+		buf[BUFFER_SIZE] = '\0';
 		temp = backup[fd];
 		backup[fd] = ft_strjoin(backup[fd], buf);
-		null_free(temp);
+		free(temp);
 		if (is_newline(buf) != -1)
 			return (1);
-		idx = -1;
-		while (++idx <= BUFFER_SIZE)
-			buf[idx] = '\0';
 	}
 	return (0);
 }
@@ -77,7 +74,7 @@ char	*line_split(int fd, char **backup)
 		return (NULL);
 	ft_strlcpy(next_line, backup[fd], idx + 1);
 	ft_strlcpy(temp, backup[fd] + idx, ft_strlen(backup[fd]) - idx + 1);
-	null_free(backup[fd]);
+	free(backup[fd]);
 	backup[fd] = temp;
 	return (next_line);
 }
@@ -98,7 +95,7 @@ char	*get_next_line(int fd)
 	if (flag == 0)
 	{
 		next_line = ft_strdup(backup[fd]);
-		null_free(backup[fd]);
+		free(backup[fd]);
 		backup[fd] = NULL;
 		if (next_line == NULL)
 			return (NULL);
