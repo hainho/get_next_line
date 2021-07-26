@@ -75,9 +75,9 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	flag = read_buf(fd, backup);
-	if (backup[fd] == NULL)
+	if (ft_strlen(backup[fd]) == 0)
 		return (NULL);
-	if (backup[fd][ft_strlen(backup[fd]) - 1] == '\n')
+	if (is_newline(backup[fd]) == ft_strlen(backup[fd]) - 1)
 		flag = 0;
 	if (flag == 0)
 	{
