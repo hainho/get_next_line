@@ -82,7 +82,7 @@ char	*get_next_line(int fd)
 	flag = read_buf(fd, backup);
 	if (ft_strlen(backup[fd]) == 0)
 		return (NULL);
-	if (is_newline(backup[fd]) == ft_strlen(backup[fd]) - 1)
+	if (backup[fd][ft_strlen(backup[fd]) - 1] == '\n')
 		flag = 0;
 	if (flag == 0)
 	{
