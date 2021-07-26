@@ -44,6 +44,7 @@ int	read_buf(int fd, char **backup)
 {
 	char	buf[BUFFER_SIZE + 1];
 	char	*temp;
+	int		idx;
 
 	if (is_newline(backup[fd]) != -1)
 		return (1);
@@ -55,6 +56,9 @@ int	read_buf(int fd, char **backup)
 		free(temp);
 		if (is_newline(buf) != -1)
 			return (1);
+		idx = -1;
+		while (++idx <= BUFFER_SIZE)
+			buf[idx] = '\0';
 	}
 	return (0);
 }
