@@ -1,0 +1,69 @@
+[Mandatory]
+[BUFFER_SIZE = 1]: 
+Invalid fd: 1.OK 2.OK 3.OK 
+files/empty: 1.OK 2.OK LEAKS.KO [0x7feb9ad04240 : 1] 
+files/nl: 1.SIGSEGV
+
+files/41_no_nl: 1.OK 2.OK LEAKS.KO [0x7feb9ad040e0 : 1] 
+files/41_with_nl: 1.OK 2.OK 3.OK LEAKS.KO [0x7feb9ae040e0 : 1] 
+files/42_no_nl: 1.OK 2.OK LEAKS.KO [0x7feb9ac05a20 : 1] 
+files/42_with_nl: 1.OK 2.OK 3.OK LEAKS.KO [0x7feb9ac05990 : 1] 
+files/43_no_nl: 1.OK 2.KO LEAKS.KO [0x7feb9ac05300 : 1] 
+files/43_with_nl: 1.OK 2.OK 3.OK LEAKS.KO [0x7feb9ac05a20 : 1] 
+files/multiple_nlx5: 1.SIGSEGV
+
+files/multiple_line_no_nl: 1.OK 2.OK 3.OK 4.OK 5.OK 6.KO LEAKS.KO [0x7feb9ac05820 : 1] 
+files/multiple_line_with_nl: 1.OK 2.OK 3.OK 4.OK 5.OK 6.OK LEAKS.KO [0x7feb9ac05a20 : 1] 
+files/alternate_line_nl_no_nl: 1.OK 2.SIGSEGV
+
+files/alternate_line_nl_with_nl: 1.OK 2.SIGSEGV
+
+files/big_line_no_nl: 1.OK 2.KO LEAKS.KO [0x7feb9ac05840 : 1] 
+files/big_line_with_nl: 1.OK 2.OK LEAKS.KO [0x7feb9ad04100 : 1] 
+stdin: 1.OK 2.SIGSEGV
+
+[BUFFER_SIZE = 42]: 
+Invalid fd: 1.OK 2.OK 3.OK 
+files/empty: 1.OK 2.OK LEAKS.KO [0x7f874b504240 : 1] 
+files/nl: 1.SIGSEGV
+
+files/41_no_nl: 1.OK 2.OK LEAKS.KO [0x7f874b504290 : 1] 
+files/41_with_nl: 1.OK 2.OK 3.OK LEAKS.KO [0x7f874b604250 : 1] 
+files/42_no_nl: 1.OK 2.OK LEAKS.KO [0x7f874b604260 : 1] 
+files/42_with_nl: 1.OK 2.OK 3.OK LEAKS.KO [0x7f874b4059f0 : 1] 
+files/43_no_nl: 1.OK 2.OK LEAKS.KO [0x7f874b504260 : 1] 
+files/43_with_nl: 1.OK 2.OK 3.OK LEAKS.KO [0x7f874b604250 : 1] 
+files/multiple_nlx5: 1.SIGSEGV
+
+files/multiple_line_no_nl: 1.OK 2.OK 3.OK 4.OK 5.OK 6.OK LEAKS.KO [0x7f874b704280 : 1] 
+files/multiple_line_with_nl: 1.OK 2.OK 3.OK 4.OK 5.OK 6.OK LEAKS.KO [0x7f874b604290 : 1] 
+files/alternate_line_nl_no_nl: 1.OK 2.SIGSEGV
+
+files/alternate_line_nl_with_nl: 1.OK 2.SIGSEGV
+
+files/big_line_no_nl: 1.OK 2.KO LEAKS.KO [0x7f874b7040a0 : 1] 
+files/big_line_with_nl: 1.OK 2.OK LEAKS.KO [0x7f874b604090 : 1] 
+stdin: 1.OK 2.SIGSEGV
+
+[BUFFER_SIZE = 10000000]: 
+Invalid fd: 1.OK 2.OK 3.OK 
+files/empty: 1.OK 2.OK LEAKS.KO [0x7f87bb504240 : 1] 
+files/nl: 1.SIGSEGV
+
+files/41_no_nl: 1.OK 2.OK LEAKS.KO [0x7f87bb504290 : 1] 
+files/41_with_nl: 1.OK 2.OK 3.OK LEAKS.KO [0x7f87bb405840 : 1] 
+files/42_no_nl: 1.OK 2.OK LEAKS.KO [0x7f87bb604290 : 1] 
+files/42_with_nl: 1.OK 2.OK 3.OK LEAKS.KO [0x7f87bb405840 : 1] 
+files/43_no_nl: 1.OK 2.OK LEAKS.KO [0x7f87bb604290 : 1] 
+files/43_with_nl: 1.OK 2.OK 3.OK LEAKS.KO [0x7f87bb604250 : 1] 
+files/multiple_nlx5: 1.SIGSEGV
+
+files/multiple_line_no_nl: 1.OK 2.OK 3.OK 4.OK 5.OK 6.OK LEAKS.KO [0x7f87bb604250 : 1] 
+files/multiple_line_with_nl: 1.OK 2.OK 3.OK 4.OK 5.OK 6.OK LEAKS.KO [0x7f87bb604220 : 1] 
+files/alternate_line_nl_no_nl: 1.OK 2.SIGSEGV
+
+files/alternate_line_nl_with_nl: 1.OK 2.SIGSEGV
+
+files/big_line_no_nl: 1.OK 2.OK LEAKS.KO [0x7f87bb4058a0 : 1] 
+files/big_line_with_nl: 1.OK 2.OK LEAKS.KO [0x7f87bb504080 : 1] 
+stdin: 1.OK 2.SIGSEGV
