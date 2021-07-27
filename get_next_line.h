@@ -6,7 +6,7 @@
 /*   By: iha <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:48:31 by iha               #+#    #+#             */
-/*   Updated: 2021/07/21 13:48:33 by iha              ###   ########.fr       */
+/*   Updated: 2021/07/27 13:11:13 by iha              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE   5000

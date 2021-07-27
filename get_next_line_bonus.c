@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iha <marvin@42.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/27 13:00:28 by iha               #+#    #+#             */
+/*   Updated: 2021/07/27 13:07:59 by iha              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
 int	is_newline(char *str)
@@ -43,7 +55,7 @@ int	read_buf(int fd, char **backup)
 
 char	*line_split(int fd, char **backup)
 {
-	int 	idx;
+	int		idx;
 	char	*next_line;
 	char	*temp;
 

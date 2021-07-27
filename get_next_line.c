@@ -6,7 +6,7 @@
 /*   By: iha <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 13:48:15 by iha               #+#    #+#             */
-/*   Updated: 2021/07/21 13:48:18 by iha              ###   ########.fr       */
+/*   Updated: 2021/07/27 13:08:22 by iha              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	read_buf(int fd, char **backup)
 
 char	*line_split(int fd, char **backup)
 {
-	int 	idx;
+	int		idx;
 	char	*next_line;
 	char	*temp;
 
